@@ -10,6 +10,10 @@ import java.util.Scanner;
 public class BookRegister {
     private ArrayList<Book> books = new ArrayList<>();
 
+    public BookRegister(){
+        books = listBookFromFile();
+    }
+
     public void addBook(Book book) {
         books.add(book);
     }
@@ -23,10 +27,11 @@ public class BookRegister {
     public void booksInGenre(Genre genre) {
         for (Book b : books) {
             if (b.getGenre() == genre) {
-                System.out.println(b.toString());
+                System.out.println(b);
             }
         }
     }
+
     public void specificAuthor(String author) {
         for (Book b : books) {
             if (b.getAuthor().equals(author)) {
@@ -44,9 +49,6 @@ public class BookRegister {
         }
         return result;
     }
-    //    public List<Book> returnBooksReadLessThan(int maxMinutes) {
-//        return books.stream().filter(b -> b.getChapters().stream().mapToInt(Chapter::getReadingTime).sum() < maxMinutes).peek(b -> System.out.println(b.getTitle())).toList();
-//}
 
     public void removeBook(String isbn) {
         for (Book b : books) {
@@ -56,16 +58,13 @@ public class BookRegister {
             }
         }
     }
+
     public void booksOlderThan(LocalDate localDate) {
         for (Book b : books) {
             if (b.getPublished().isBefore(localDate)) {
-                System.out.println(b.toString());
+                System.out.println(b);
             }
         }
-    }
-    public List<Book> books() {
-        books = listBookFromFile();
-        return books;
     }
 
     public void writeBooksToFile() throws IOException {
@@ -78,36 +77,29 @@ public class BookRegister {
         writer.close();
     }
 
-    public  ArrayList<Book> listBookFromFile() {
+    public ArrayList<Book> listBookFromFile() {
         File file = new File("Books.txt");
         ArrayList<Book> books = new ArrayList<>();
         Scanner scanner = null;
         try {
             scanner = new Scanner(file);
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);}
+            throw new RuntimeException(e);
+        }
 
         while (scanner.hasNextLine()) {
-            Book book = new Book();
             String isbn = scanner.nextLine();
-            book.setIsbn(isbn);
-            String publishedAsString = scanner.nextLine();
-            book.setPublished(LocalDate.parse(publishedAsString));
+            String published = scanner.nextLine();
             String title = scanner.nextLine();
-            book.setTitle(title);
             String author = scanner.nextLine();
-            book.setAuthor(author);
             String numberOfPages = scanner.nextLine();
-            book.setNumberOfPages(Integer.parseInt(numberOfPages));
             String genre = scanner.nextLine();
-            book.setGenre(Genre.valueOf(genre));
             String minutesPerPage = scanner.nextLine();
-            book.setMinutesPerPage(Integer.parseInt(minutesPerPage));
             scanner.nextLine();
+            Book book = new Book(isbn, LocalDate.parse(published), title,author, Integer.parseInt(numberOfPages), Genre.valueOf(genre),  Integer.parseInt(minutesPerPage));
             books.add(book);
         }
         scanner.close();
-
         return books;
     }
 }

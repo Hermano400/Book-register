@@ -1,0 +1,40 @@
+1717
+1997-06-23
+Harry Potter
+J.K. Rowling
+300
+FANTASY
+1
+---
+4928
+2005-12-23
+Three body problem
+Liu Cixin
+400
+SCI_FI
+2
+---
+8173
+1954-02-12
+Lord of the rings
+John Ronald Reuel Tolkien
+500
+FANTASY
+3
+---
+6767
+1964-02-05
+Dune
+Frank Herbert
+400
+SCI_FI
+2
+---
+5930
+1982-10-06
+The White Plague
+Frank Herbert
+450
+SCI_FI
+4
+---

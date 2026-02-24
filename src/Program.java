@@ -6,23 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Program {
-    private BookRegister bookRegister;
-    private String userName;
+    private BookRegister bookRegister;;
 
-
-    public void setBookRegister(BookRegister bookRegister) {
-        this.bookRegister = bookRegister;
+    public Program() {
+        bookRegister = new BookRegister();
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public void run() {
         Scanner input = new Scanner(System.in);
         int choice = 0;
         while (choice != 9) {
-            System.out.println("Hello " + userName + ", please pick a number between (1-8)");
+            System.out.println("Hello " + "Herman" + ", please pick a number between (1-8)");
             System.out.println(("1: Add book:"));
             System.out.println(("2: Show all books"));
             System.out.println(("3: Show all books by genre"));
@@ -50,46 +45,36 @@ public class Program {
 
 
     public void addBook() {
-        Book book = new Book();
-
         System.out.println("Add a book:");
         Scanner input = new Scanner(System.in);
         System.out.println("Enter an isbn for the book (xxxx): ");
         String isbn = input.nextLine();
-        book.setIsbn(isbn);
         System.out.println("Enter the publish date (YYYY-MM-DD): ");
         String publicationDate = input.nextLine();
         LocalDate published = LocalDate.parse(publicationDate);
-        book.setPublished(published);
         System.out.println("Enter a title: ");
         String title = input.nextLine();
-        book.setTitle(title);
         System.out.println("Enter the name of the author: ");
         String author = input.nextLine();
-        book.setAuthor(author);
         System.out.println("Enter number of pages:");
         int numberOfPages = input.nextInt();
-        book.setNumberOfPages(numberOfPages);
         System.out.println("Enter genre (CRIME, ACTION, FANTASY, CLASSIC, SCI_FI, OTHER): ");
         input.nextLine();  //Removing line break
         String genreAsTxt = input.nextLine().toUpperCase();
         Genre genre = Genre.valueOf(genreAsTxt);
-        book.setGenre(genre);
         System.out.println("Enter reading time per page in minutes:");
         int minutesPerPage = input.nextInt();
-        book.setMinutesPerPage(minutesPerPage);
+        Book book = new Book(isbn, published, title,author, numberOfPages, genre, minutesPerPage);
         input.nextLine(); //Removing line break
         ArrayList<Chapter> chapters = new ArrayList<>();
         boolean addMoreChapters = true;
         while (addMoreChapters) {
-            Chapter chapter = new Chapter();
             System.out.println("Enter a chapter title:");
             String chapterTitle = input.nextLine();
-            chapter.setTittle(chapterTitle);
             System.out.println("Enter number of pages in the chapter:");
             int chapterNumberOfPages = input.nextInt();
-            chapter.setTotalPages(chapterNumberOfPages);
-            input.nextLine();
+            input.nextLine(); //Removing line break
+            Chapter chapter = new Chapter(chapterTitle, chapterNumberOfPages);
             chapters.add(chapter);
             System.out.println("Add more chapters? (y/n)");
             String answer = input.nextLine();
