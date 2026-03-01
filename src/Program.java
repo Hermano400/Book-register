@@ -1,4 +1,8 @@
 
+import sidebiz.Genre;
+import sidebiz.Utility;
+import static sidebiz.Constants.*;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -14,19 +18,20 @@ public class Program {
 
 
     public void run() {
+        System.out.println(WELCOME);
         Scanner input = new Scanner(System.in);
         int choice = 0;
         while (choice != 9) {
-            System.out.println("Hello " + "Herman" + ", please pick a number between (1-8)");
-            System.out.println(("1: Add book:"));
-            System.out.println(("2: Show all books"));
-            System.out.println(("3: Show all books by genre"));
-            System.out.println(("4: Show all books by maximum reading time"));
-            System.out.println(("5: Remove book"));
-            System.out.println(("6: Show all books by author"));
-            System.out.println("7: Show books published after a certain date:");
-            System.out.println(("8: Print to file"));
-            System.out.println("9: Quit");
+            System.out.println(OPTIONS);
+            System.out.println((ADD_BOOK));
+            System.out.println((SHOW_ALL_BOOKS));
+            System.out.println((SHOW_ALL_BOOKS_BY_GENRE));
+            System.out.println((SHOW_ALL_BOOKS_BY_MAX_READING_TIME));
+            System.out.println((REMOVE_BOOK));
+            System.out.println((SHOW_ALL_BOOKS_BY_AUTHOR));
+            System.out.println(SHOW_BOOKS_AFTER_DATE);
+            System.out.println((PRINT_TO_FILE));
+            System.out.println(QUIT);
             choice = input.nextInt();
             switch (choice) {
                 case 1 -> addBook();
@@ -47,24 +52,32 @@ public class Program {
     public void addBook() {
         System.out.println("Add a book:");
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter an isbn for the book (xxxx): ");
-        String isbn = input.nextLine();
-        System.out.println("Enter the publish date (YYYY-MM-DD): ");
+        boolean validIsbn = false;
+        String isbn = null;
+        while (!validIsbn) {
+            System.out.println(ENTER_ISBN);
+            isbn = input.nextLine();
+            validIsbn = Utility.validISBN(isbn);
+            if (validIsbn == false){
+                System.out.println("The ISBN must have four characters.");
+            }
+        }
+        System.out.println(ENTER_PUBLISHING_DATE);
         String publicationDate = input.nextLine();
         LocalDate published = LocalDate.parse(publicationDate);
         System.out.println("Enter a title: ");
         String title = input.nextLine();
-        System.out.println("Enter the name of the author: ");
+        System.out.println(ENTER_AUTHOR);
         String author = input.nextLine();
         System.out.println("Enter number of pages:");
         int numberOfPages = input.nextInt();
-        System.out.println("Enter genre (CRIME, ACTION, FANTASY, CLASSIC, SCI_FI, OTHER): ");
+        System.out.println(ENTER_GENRE);
         input.nextLine();  //Removing line break
         String genreAsTxt = input.nextLine().toUpperCase();
         Genre genre = Genre.valueOf(genreAsTxt);
-        System.out.println("Enter reading time per page in minutes:");
+        System.out.println(ENTER_READING_TIME);
         int minutesPerPage = input.nextInt();
-        Book book = new Book(isbn, published, title,author, numberOfPages, genre, minutesPerPage);
+        Book book = new Book(isbn, published, title, author, numberOfPages, genre, minutesPerPage);
         input.nextLine(); //Removing line break
         ArrayList<Chapter> chapters = new ArrayList<>();
         boolean addMoreChapters = true;
@@ -91,7 +104,7 @@ public class Program {
     }
 
     public void booksByGenre() {
-        System.out.println("Choose one of the following genres:  CRIME, ACTION, FANTASY, CLASSIC, SCI_FI, OTHER");
+        System.out.println(ENTER_GENRE);
         Scanner input = new Scanner(System.in);
         String s = input.nextLine().toUpperCase();
         Genre g = Genre.valueOf(s);
@@ -110,7 +123,7 @@ public class Program {
 
 
     public void removeBook() {
-        System.out.println("Enter isb:");
+        System.out.println(ENTER_ISBN);
         Scanner input = new Scanner(System.in);
         String isbn = input.nextLine();
         bookRegister.removeBook(isbn);
@@ -118,14 +131,14 @@ public class Program {
 
 
     public void booksByAuthor() {
-        System.out.println("Write an author:");
+        System.out.println(ENTER_AUTHOR);
         Scanner input = new Scanner(System.in);
         String s = input.nextLine();
         bookRegister.specificAuthor(s);
     }
 
     private void booksOlderThan() {
-        System.out.println("Write a date (YYYY-MM-DD):");
+        System.out.println(ENTER_PUBLISHING_DATE);
         Scanner input = new Scanner(System.in);
         String publicationDate = input.nextLine();
         LocalDate published = LocalDate.parse(publicationDate);

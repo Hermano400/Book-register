@@ -1,8 +1,10 @@
+import sidebiz.Genre;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Book {
-    private String isbn;
+    private final String isbn;
     private final LocalDate published;
     private final String title;
     private final String author;
@@ -66,16 +68,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "isbn='" + isbn + '\'' +
-                ", published=" + published +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", numberOfPages=" + numberOfPages +
-                ", genre=" + genre +
-                ", chapters=" + chapters +
-                ", minutesPerPage=" + minutesPerPage +
-                '}';
+       return String.format("Book{isbn = '%s', published = '%s', title = '%s', author = '%s', numberOfPages = %d, genre = '%s', chapters = '%s', minutesPerPage = %d}", isbn,published,title,author,numberOfPages,genre,chapters,minutesPerPage);
     }
 
     public String toFile() {

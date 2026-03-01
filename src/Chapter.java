@@ -1,14 +1,14 @@
 public class Chapter {
-    private final String tittle;
+    private final String title;
     private final int totalPages;
 
-    public Chapter(String tittle, int totalPages) {
-        this.tittle = tittle;
+    public Chapter(String title, int totalPages) {
+        this.title = title;
         this.totalPages = totalPages;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
 
@@ -19,9 +19,10 @@ public class Chapter {
 
     @Override
     public String toString() {
-        return "Chapter {" +
-                "tittle = '" + tittle + '\'' +
-                ", totalPages = " + totalPages +
-                '}';
+//        return "Chapter {" +
+//                "title = '" + title + '\'' +
+//                ", totalPages = " + totalPages +
+//                '}';
+        return String.format("Chapter{title = '%s', totalPages = %d }", title,totalPages);
     }
 }
